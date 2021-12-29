@@ -10,7 +10,7 @@ class Server {
         this.paths = {
             user: "/api/v1.0/user",
             product: "/api/v1.0/product",
-            auth: "/api/v1.0/login"
+            auth: "/api/v1.0"
         };
         this.port = process.env.PORT;
         this.middlewares();
@@ -25,10 +25,13 @@ class Server {
         this.app.use(morgan("dev"));
     }
 
-    routes() {}
+    routes() {
+        this.app.use(this.paths.user, require("../routes/user.route"));
+        this.app.use(this.paths.auth, require("../routes/auth.route"));
+    }
 
     databaseConnection() {
-        dbConnection().then((db) => console.log("Base de datos conectada en la colección", db.connection.name)).catch(console.log)
+        dbConnection().then((db) => console.log("Database connected in colection", db.connection.name)).catch(console.log)
 
     }
 

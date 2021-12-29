@@ -8,7 +8,6 @@ const URI = `${
 }`
 
 const dbConnection = async()=>{
-    console.log(URI)
     try {
         return await mongoose.connect(URI, {
             useNewUrlParser: true,

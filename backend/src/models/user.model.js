@@ -17,6 +17,7 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+        min: 8,
         required: true
     },
     status: {
@@ -25,5 +26,10 @@ const userSchema = new Schema({
         default: true
     }
 }, {timestamps: true})
+
+userSchema.methods.toJSON = function () {
+    const {__v, password, ...user} = this.toObject()
+    return user
+}
 
 module.exports = model('user', userSchema)
